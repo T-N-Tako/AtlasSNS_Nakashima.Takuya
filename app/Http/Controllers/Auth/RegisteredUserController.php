@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+
+
+
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -30,11 +34,14 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        User::create([
+        $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // セッションに登録ユーザーの名前を保存
+        session()->flash('user_name', $user->username);
 
         return redirect('added');
     }

@@ -32,4 +32,26 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    // 多対多リレーション
+    public function following()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'following_id',
+            'followed_id'
+        );
+    }
+
+    public function followed()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'followed_id',
+            'following_id'
+        );
+    }
 }
