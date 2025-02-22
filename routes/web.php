@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\FollowController;
+use App\Http\Controllers\FollowsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,22 +25,35 @@ require __DIR__ . '/auth.php';
 // ホーム画面の表示
 Route::get('index', [PostsController::class, 'index']);
 
+// プロフィール画面の表示
 Route::get('profile', [ProfileController::class, 'profile']);
 
+// プロフィール編集
+Route::post('update', [ProfileController::class, 'update']);
+
+// 検索機能
+Route::post('search', [UsersController::class, 'search']);
 Route::get('search', [UsersController::class, 'search']);
 
 Route::get('follow-list', [PostsController::class, 'index']);
 
 Route::get('follower-list', [PostsController::class, 'index']);
 
-Route::post('/follow/{id}', [FollowController::class, 'toggleFollow']);
+// フォロー機能
+Route::post('/toggleFollow/{id}', [FollowsController::class, 'toggleFollow']);
 
 Route::get('followList', [UsersController::class, 'followList']);
 
 Route::get('followerList', [UsersController::class, 'followerList']);
 
-Route::get('post', [PostController::class, 'index']);
-// 投稿機能のはず
-Route::post('/posts', [PostController::class, 'store']);
+// 編集（update）処理
+Route::post('/post/update',  [PostsController::class, 'update']);
+
+// 削除処理
+Route::get('/post/{id}/delete',  [PostsController::class, 'delete']);
+
+// 投稿機能
+Route::post('/posts', [PostsController::class, 'store']);
+
 // ログアウト機能
 Route::get('logout', [AuthenticatedSessionController::class, 'logout']);

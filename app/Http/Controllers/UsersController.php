@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -29,19 +30,41 @@ class UsersController extends Controller
         if (!empty($keyword)) {
             $users = User::where('username', 'like', '%' . $keyword . '%')->get();
         } else {
-            $users = User::all();
+            $users = User::where('id', '!=', auth()->id())->get(); // 自分以外の全ユーザーを取得
         }
         // 3つ目の処理
         return view('users.search', ['users' => $users]);
     }
 
+    // 初期
+    // public function followList()
+    // {
+    //     $posts = Post::get();
+    //     return view('follows.followList', compact('posts'));
+    // }
+    // public function followerList()
+    // {
+    //     $posts = Post::get();
+    //     return view('follows.followerList', compact('posts'));
+    // }
 
+    // 変化後
     public function followList()
     {
-        return view('follows.followList');
+        // フォローしているユーザーのidを取得
+        $following_id = Auth::user()->following()->pluck('followed_id');
+        // フォローしているユーザーのidを元に投稿内容を取得
+        $posts = Post::with('user')->whereIn('user_id', $following_id)->get();
+
+        return view('follows.followList', compact('posts'));
     }
+
     public function followerList()
     {
-        return view('follows.followerList');
+        $follower_id = Auth::user()->followed()->pluck('following_id');
+        // dd($follower_id);
+        $posts = Post::with('user')->whereIn('user_id', $follower_id)->get();
+        // dd($posts);
+        return view('follows.followerList', compact('posts'));
     }
 }

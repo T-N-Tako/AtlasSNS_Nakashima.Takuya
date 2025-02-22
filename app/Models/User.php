@@ -54,4 +54,18 @@ class User extends Authenticatable
             'following_id'
         );
     }
+
+    // 追加
+    public function isFollowing($id): bool
+    {
+        return $this->following()->where('followed_id', $id)->exists();
+    }
+
+    // 追加
+    //リレーション定義を追加
+    //「１対多」の「多」側 → メソッド名は複数形でhasManyを使う
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
 }

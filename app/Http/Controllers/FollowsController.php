@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class FollowsController extends Controller
 {
@@ -26,7 +28,7 @@ class FollowsController extends Controller
         $userToFollow = User::findOrFail($id);
 
         // すでにフォローしているかチェック
-        $isFollowing = $user->following()->where('followed_id', $id)->exists();
+        $isFollowing = $user->isfollowing($id);
 
         if ($isFollowing) {
             $user->following()->detach($id); // フォロー解除
@@ -34,6 +36,6 @@ class FollowsController extends Controller
             $user->following()->attach($id); // フォロー追加
         }
 
-        return redirect();
+        return back();
     }
 }

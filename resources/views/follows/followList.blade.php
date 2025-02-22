@@ -1,6 +1,15 @@
 <x-login-layout>
 
+  <h2>フォローリスト</h2>
 
-  <h2>機能を実装していきましょう。</h2>
+  <table class="table table-hover">
+    @foreach($posts as $post)
+    <tr>
+      <td>{{ $post->user->username }}</td>
+      <td>{{ $post->post }}</td>
+      <td>{{ $post->created_at }}</td>
+    </tr>
+    @endforeach
+  </table>
 
 </x-login-layout>
