@@ -15,11 +15,15 @@
       <table class="table table-hover">
         @foreach ($posts as $post)
         <tr>
-          <td>{{ $post->id }}</td>
+          <td>
+            <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40" ">
+          </td>
+          <td>{{ $post->user->username }}</td>
           <td>{{ $post->post }}</td>
           <td>{{ $post->created_at }}</td>
           @if (Auth::user()->id == $post->user_id)
-          <td><a class="js-modal-open" href="" post="{{ $post->post }}" post_id="{{ $post->id }}"> <img src="{{ asset('images/edit_h.png') }}"></a></td>
+          <td><a class=" js-modal-open" href="" post="{{ $post->post }}" post_id="{{ $post->id }}"> <img src="{{ asset('images/edit_h.png') }}"></a>
+          </td>
           <td><a class="btn btn-danger" href="/post/{{$post->id}}/delete" onclick="return confirm('この投稿を削除します。よろしいでしょうか？')"><img src="{{ asset('images/trash-h.png') }}"></a></td>
           @endif
         </tr>

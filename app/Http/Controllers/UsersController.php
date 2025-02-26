@@ -53,18 +53,26 @@ class UsersController extends Controller
     {
         // フォローしているユーザーのidを取得
         $following_id = Auth::user()->following()->pluck('followed_id');
+
+        // フォローしているユーザーのユーザー情報を取得
+        $following = User::whereIn('id', $following_id)->get();
+
         // フォローしているユーザーのidを元に投稿内容を取得
         $posts = Post::with('user')->whereIn('user_id', $following_id)->get();
 
-        return view('follows.followList', compact('posts'));
+        return view('follows.followList', compact('posts', 'following'));
     }
 
     public function followerList()
     {
+        // フォローしてくれているユーザーのidを取得
         $follower_id = Auth::user()->followed()->pluck('following_id');
-        // dd($follower_id);
+
+        // フォロワーのユーザー情報を取得
+        $followers = User::whereIn('id', $follower_id)->get();
+
+        // フォローしてくれているユーザーのidを元に投稿内容を取得
         $posts = Post::with('user')->whereIn('user_id', $follower_id)->get();
-        // dd($posts);
-        return view('follows.followerList', compact('posts'));
+        return view('follows.followerList', compact('posts', 'followers'));
     }
 }

@@ -22,38 +22,46 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-// ホーム画面の表示
-Route::get('index', [PostsController::class, 'index']);
+Route::middleware(['auth'])->group(function () {
 
-// プロフィール画面の表示
-Route::get('profile', [ProfileController::class, 'profile']);
+  // ホーム画面の表示
+  Route::get('index', [PostsController::class, 'index']);
 
-// プロフィール編集
-Route::post('update', [ProfileController::class, 'update']);
+  // プロフィール画面の表示
+  Route::get('profile', [ProfileController::class, 'profile']);
 
-// 検索機能
-Route::post('search', [UsersController::class, 'search']);
-Route::get('search', [UsersController::class, 'search']);
+  // 他ユーザーのプロフィール画面の表示
+  Route::get('/profile/{id}', [ProfileController::class, 'otherProfile']);
 
-Route::get('follow-list', [PostsController::class, 'index']);
+  // プロフィール編集
+  Route::post('update', [ProfileController::class, 'update']);
 
-Route::get('follower-list', [PostsController::class, 'index']);
+  // 検索機能
+  Route::post('search', [UsersController::class, 'search']);
+  Route::get('search', [UsersController::class, 'search']);
 
-// フォロー機能
-Route::post('/toggleFollow/{id}', [FollowsController::class, 'toggleFollow']);
+  // Route::get('follow-list', [PostsController::class, 'index']);
 
-Route::get('followList', [UsersController::class, 'followList']);
+  // Route::get('follower-list', [PostsController::class, 'index']);
 
-Route::get('followerList', [UsersController::class, 'followerList']);
+  // フォロー機能
+  Route::post('/toggleFollow/{id}', [FollowsController::class, 'toggleFollow']);
 
-// 編集（update）処理
-Route::post('/post/update',  [PostsController::class, 'update']);
+  // フォローリスト表示
+  Route::get('followList', [UsersController::class, 'followList']);
 
-// 削除処理
-Route::get('/post/{id}/delete',  [PostsController::class, 'delete']);
+  // フォロワーリスト表示
+  Route::get('followerList', [UsersController::class, 'followerList']);
 
-// 投稿機能
-Route::post('/posts', [PostsController::class, 'store']);
+  // 編集（update）処理
+  Route::post('/post/update',  [PostsController::class, 'update']);
 
-// ログアウト機能
-Route::get('logout', [AuthenticatedSessionController::class, 'logout']);
+  // 削除処理
+  Route::get('/post/{id}/delete',  [PostsController::class, 'delete']);
+
+  // 投稿機能
+  Route::post('/posts', [PostsController::class, 'store']);
+
+  // ログアウト機能
+  Route::get('logout', [AuthenticatedSessionController::class, 'logout']);
+});

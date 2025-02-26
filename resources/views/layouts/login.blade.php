@@ -44,14 +44,14 @@
           <p>フォロー数</p>
           <p>{{ Auth::user()->following()->count() }}名</p>
         </div>
-        <p class="btn btn-primary"><a href="followList">フォローリスト</a></p>
+        <p class="btn btn-primary"><a href="/followList">フォローリスト</a></p>
         <div>
           <p>フォロワー数</p>
           <p>{{ Auth::user()->followed()->count() }}名</p>
         </div>
-        <p class="btn btn-primary"><a href="followerList">フォロワーリスト</a></p>
+        <p class="btn btn-primary"><a href="/followerList">フォロワーリスト</a></p>
       </div>
-      <p class="btn btn-primary"><a href="search">ユーザー検索</a></p>
+      <p class="btn btn-primary"><a href="/search">ユーザー検索</a></p>
     </div>
   </div>
   <footer>
