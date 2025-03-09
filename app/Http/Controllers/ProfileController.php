@@ -102,10 +102,12 @@ class ProfileController extends Controller
             'email.email' => '正しいメールアドレスの形式で入力してください',
             'email.unique' => 'このメールアドレスはすでに登録されています',
 
+            'password.required' => 'パスワードは必須項目です',
             'password.min' => 'パスワードは８文字以上で入力してください',
             'password.max' => 'パスワードは20文字以内で入力してください',
             'password.alpha_num' => 'パスワードは英数字のみ使用できます',
             'password.confirmed' => 'パスワードが一致しません',
+            'password_confirmation.required' => 'パスワードは必須項目です',
 
             'bio.max' => '自己紹介は150文字以内で入力してください',
 

@@ -25,33 +25,30 @@ require __DIR__ . '/auth.php';
 Route::middleware(['auth'])->group(function () {
 
   // ホーム画面の表示
-  Route::get('index', [PostsController::class, 'index']);
+  Route::get('/index', [PostsController::class, 'index']);
 
   // プロフィール画面の表示
-  Route::get('profile', [ProfileController::class, 'profile']);
+  Route::get('/profile', [ProfileController::class, 'profile']);
 
   // 他ユーザーのプロフィール画面の表示
   Route::get('/profile/{id}', [ProfileController::class, 'otherProfile']);
+  Route::post('/profile/{id}', [ProfileController::class, 'otherProfile']);
 
   // プロフィール編集
-  Route::post('update', [ProfileController::class, 'update']);
+  Route::post('/update', [ProfileController::class, 'update']);
 
   // 検索機能
-  Route::post('search', [UsersController::class, 'search']);
-  Route::get('search', [UsersController::class, 'search']);
-
-  // Route::get('follow-list', [PostsController::class, 'index']);
-
-  // Route::get('follower-list', [PostsController::class, 'index']);
+  Route::post('/search', [UsersController::class, 'search']);
+  Route::get('/search', [UsersController::class, 'search']);
 
   // フォロー機能
   Route::post('/toggleFollow/{id}', [FollowsController::class, 'toggleFollow']);
 
   // フォローリスト表示
-  Route::get('followList', [UsersController::class, 'followList']);
+  Route::get('/followList', [UsersController::class, 'followList']);
 
   // フォロワーリスト表示
-  Route::get('followerList', [UsersController::class, 'followerList']);
+  Route::get('/followerList', [UsersController::class, 'followerList']);
 
   // 編集（update）処理
   Route::post('/post/update',  [PostsController::class, 'update']);
@@ -63,5 +60,5 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/posts', [PostsController::class, 'store']);
 
   // ログアウト機能
-  Route::get('logout', [AuthenticatedSessionController::class, 'logout']);
+  Route::get('/logout', [AuthenticatedSessionController::class, 'logout']);
 });

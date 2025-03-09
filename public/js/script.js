@@ -31,31 +31,15 @@ $(function(){
 
 
 
-// あとで編集する！
+// 矢印の動き
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.toggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const dropdown = button.nextElementSibling;
+    const arrowDown = document.querySelector('.arrow-down');
+    const accordionMenu = document.getElementById('accordion-menu');
 
-            // Close other dropdowns
-            document.querySelectorAll('.dropdown').forEach(menu => {
-                if (menu !== dropdown) menu.style.display = 'none';
-            });
-            document.querySelectorAll('.toggle').forEach(btn => {
-                if (btn !== button) btn.classList.remove('active');
-            });
-
-            // Toggle current dropdown
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            button.classList.toggle('active');
-        });
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.item')) {
-            document.querySelectorAll('.dropdown').forEach(menu => menu.style.display = 'none');
-            document.querySelectorAll('.toggle').forEach(btn => btn.classList.remove('active'));
-        }
+    // 矢印をクリックしたら開閉
+    arrowDown.addEventListener('click', (e) => {
+        e.stopPropagation(); // 他のクリックイベントを防ぐ
+        accordionMenu.classList.toggle('show');
+        arrowDown.classList.toggle('active');
     });
 });
