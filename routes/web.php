@@ -32,7 +32,6 @@ Route::middleware(['auth'])->group(function () {
 
   // 他ユーザーのプロフィール画面の表示
   Route::get('/profile/{id}', [ProfileController::class, 'otherProfile']);
-  Route::post('/profile/{id}', [ProfileController::class, 'otherProfile']);
 
   // プロフィール編集
   Route::post('/update', [ProfileController::class, 'update']);

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Post;
+use Illuminate\Support\Facades\Hash;
+
 
 class ProfileController extends Controller
 {
@@ -41,31 +43,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // // バリデーション
-        // $request->validate([
-        //     'username' => 'required|string|min:2|max:12',  // 2文字以上、12文字以内
-        //     'email' => [
-        //         'required',
-        //         'email',
-        //         'min:5',
-        //         'max:40',
-        //         Rule::unique('users')->ignore(Auth::id()),  // 現在のユーザーを除くメールアドレスの重複チェック
-        //     ],
-        //     'password' => 'nullable|alpha_num|min:8|max:20|confirmed',  // 英数字のみ、8文字以上、20文字以内、確認欄と一致
-        //     'password_confirmation' => 'nullable|alpha_num|min:8|max:20|same:password',  // パスワード確認
-        //     'bio' => 'nullable|string|max:150',  // 150文字以内
-        //     'images' => 'nullable|image|mimes:jpeg,png,jpg,gif,bmp,svg|max:2048',  // 対応する画像形式
-        // ]);
-
-        // まだバリデーション効いてない
-        // $request->validate([
-        //     'username' => 'required|string|max:255',
-        //     'mail' => 'required|email|max:255',
-        //     'password' => 'nullable|min:8|max:20|confirmed',
-        //     'bio' => 'nullable|string|max:500',
-        //     'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        // ]);
-
         // 変更版
         $request->validate([
             'username' => 'required|string|min:2|max:12', // 必須・文字列・2〜12文字
@@ -77,7 +54,8 @@ class ProfileController extends Controller
                 Rule::unique('users')->ignore(Auth::id()), // 他のユーザーのメールアドレスと重複不可（自分のはOK）
             ],
             'password' => [
-                'required',
+                // 'required',
+                'nullable', // パスワード変更があればのみバリデーション
                 'string',
                 'alpha_num', // 英数字のみ
                 'min:8',
@@ -85,7 +63,8 @@ class ProfileController extends Controller
                 'confirmed', // password_confirmation と一致するか
             ],
             'password_confirmation' => [
-                'required',
+                // 'required',
+                'nullable', // パスワード変更があればのみバリデーション
                 'string',
                 'alpha_num', // 英数字のみ
                 'min:8',
@@ -121,7 +100,7 @@ class ProfileController extends Controller
 
         // データ更新
         $user->username = $request->username;
-        $user->email = $request->mail;
+        $user->email = $request->email;
         $user->bio = $request->bio;
 
         // パスワードを変更する場合のみ更新

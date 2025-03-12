@@ -11,7 +11,7 @@
     <!-- 検索ワードを表示 -->
     @if (!empty(request('keyword')))
     <div>
-      <p> <strong>{{ request('keyword') }}</strong></p>
+      <p> <strong>検索ワード：{{ request('keyword') }}</strong></p>
     </div>
     @endif
   </div>

@@ -1,5 +1,5 @@
 <div id="head">
-    <h2><a href="index"><img src="/images/atlas.png"></a></h2>
+    <h2><a href="/index"><img src="/images/atlas.png"></a></h2>
     <div id="content">
         <div id="user-info">
             <p>{{ Auth::user()->username }}　さん　　<span class="arrow-down"></span></p>

@@ -1,4 +1,4 @@
-a<x-login-layout>
+<x-login-layout>
 
   <div class="follower-list">
     <h2>フォロワーリスト</h2>

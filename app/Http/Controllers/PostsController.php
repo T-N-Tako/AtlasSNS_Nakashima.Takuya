@@ -11,7 +11,12 @@ class PostsController extends Controller
     //
     public function index()
     {
-        $posts = Post::latest()->get(); //postモデル（postsテーブル）からレコード情報を取得
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->get();
+
+        // 1件目の投稿内容をデバッグ表示
+        // dd($posts->first()->post);
+
+
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -38,12 +43,12 @@ class PostsController extends Controller
     {
         // 1. バリデーション（空の値を許さない）
         $request->validate([
-            'upPosts' => 'required|max:150',
+            'content' => 'required|max:150',
         ]);
 
         // 2. 該当の投稿を取得し、更新
         Post::where('id', $request->id)->update([
-            'post' => $request->upPosts,
+            'post' => $request->content,
         ]);
 
         // 3. 更新後にリダイレクト
@@ -61,7 +66,7 @@ class PostsController extends Controller
     public function show()
     {
         // Postモデル経由でpostsテーブルのレコードを取得
-        $posts = Post::get();
+        $posts = Post::with('user')->latest()->get();
         return view('followList', compact('posts'));
     }
 }

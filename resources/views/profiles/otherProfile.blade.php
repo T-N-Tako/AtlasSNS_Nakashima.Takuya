@@ -3,7 +3,7 @@
 <x-login-layout>
 
   <div class="profile-info">
-    <img src="{{ asset('storage/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="follower icon" width="40" height="40">
+    <img src="{{ asset('storage/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="follower icon" width="50" height="50">
     <div class="profile-details">
       <div class="username-wrapper">
         <p>ユーザー名 </p>

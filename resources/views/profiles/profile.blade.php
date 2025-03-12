@@ -18,9 +18,8 @@
           <label for="username" class="form-label">ユーザー名</label>
           <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', Auth::user()->username) }}" required>
           @error('username')
-          <div class="invalid-feedback">{{ $message }}</div>
+          <div class="invalid-feedback  d-block">{{ $message }}</div>
           @enderror
-
         </div>
 
         {{-- メールアドレス --}}
@@ -37,9 +36,9 @@
         <div class="form-group">
           <label for="password" class="form-label">パスワード</label>
           <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-          @error('password')
-          <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
+          <div class="invalid-feedback">
+            @error('password'){{ $message }} @enderror
+          </div>
         </div>
 
         {{-- パスワード確認 --}}
@@ -54,7 +53,10 @@
         {{-- 自己紹介 --}}
         <div class="form-group">
           <label for="bio" class="form-label">自己紹介</label>
-          <input type="text" name="bio" id="bio" class="form-control @error('bio') is-invalid @enderror">{{ old('bio', Auth::user()->bio) }}</input>
+          <!-- <input type="text" name="bio" id="bio" class="form-control @error('bio') is-invalid @enderror">{{ old('bio', Auth::user()->bio) }}</input> -->
+
+          <input type="text" name="bio" id="bio" class="form-control @error('bio') is-invalid @enderror" value="{{ old('bio', Auth::user()->bio) }}">
+
           @error('bio')
           <div class="invalid-feedback">{{ $message }}</div>
           @enderror
@@ -74,7 +76,7 @@
         </div>
 
         {{-- 更新ボタン --}}
-        <button type="submit" class="btn btn-primary">更新</button>
+        <button type="submit" class="btn btn-danger">更新</button>
       </form>
     </div>
   </div>
