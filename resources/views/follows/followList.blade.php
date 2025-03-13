@@ -23,7 +23,7 @@
       <tr>
         <td class="post-info">
           <div class="post-header">
-            <a href="{{ url('/profile/' . $followed->id) }}">
+            <a href="{{ url('/profile/' . $post->user_id) }}">
               <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40">
             </a>
             <span>{{ $post->user->username }}</span>

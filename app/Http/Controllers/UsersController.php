@@ -58,7 +58,7 @@ class UsersController extends Controller
         $following = User::whereIn('id', $following_id)->get();
 
         // フォローしているユーザーのidを元に投稿内容を取得
-        $posts = Post::with('user')->whereIn('user_id', $following_id)->get();
+        $posts = Post::with('user')->whereIn('user_id', $following_id)->orderBy('created_at', 'desc')->with('user')->get();
 
         return view('follows.followList', compact('posts', 'following'));
     }
@@ -72,7 +72,7 @@ class UsersController extends Controller
         $followers = User::whereIn('id', $follower_id)->get();
 
         // フォローしてくれているユーザーのidを元に投稿内容を取得
-        $posts = Post::with('user')->whereIn('user_id', $follower_id)->get();
+        $posts = Post::with('user')->whereIn('user_id', $follower_id)->orderBy('created_at', 'desc')->with('user')->get();
         return view('follows.followerList', compact('posts', 'followers'));
     }
 }
