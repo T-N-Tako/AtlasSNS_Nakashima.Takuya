@@ -4,21 +4,10 @@
     <div id="post">
       <form action="/posts" method="POST" id="posts-area">
         @csrf
-        <!-- <img src="{{asset('storage/' . Auth::user()->icon_image)}}" alt="User Icon" id="icon" width="50"> -->
-
-        <!-- <img src="{{ Auth::user()->icon_image ? asset('storage/' . Auth::user()->icon_image) : asset('images/icon1.png') }}"
-          alt="User Icon" id="icon" width="50"> -->
-
-        <!-- <img src="{{ asset('storage/' . (Auth::user()->icon_image ?? 'icon1.png')) }}"
-          alt="User Icon" id="icon" width="50"> -->
-
-        <!-- <img src="{{ Storage::url(Auth::user()->icon_image ?? 'icons/icon1.png') }}"
-          alt="User Icon" id="icon" width="50"> -->
-
 
         @if(Auth::user()->icon_image != 'icon1.png')
         <!-- ユーザーが設定したアイコンを表示 -->
-        <img src="{{ asset('storage/icons/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
+        <img src="{{ asset('storage/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
         @else
         <!-- 初期アイコンを表示 -->
         <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">

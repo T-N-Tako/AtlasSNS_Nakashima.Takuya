@@ -6,7 +6,15 @@
     @foreach($followers as $follower)
     <div class="follower-item">
       <a href="{{ url('/profile/' . $follower->id) }}">
-        <img src="{{ asset('storage/' . ($follower->icon_image ?? 'images/default-icon.png')) }}" alt="follower icon" width="40" height="40">
+
+        @if($follower->icon_image != 'icon1.png')
+        <!-- ユーザーが設定したアイコンを表示 -->
+        <img src="{{ asset('storage/' . $follower->icon_image) }}" alt="follower icon" width="40" height="40">
+        @else
+        <!-- 初期アイコンを表示 -->
+        <img src="{{ asset('images/icon1.png') }}" alt="follower icon" width="40" height="40">
+        @endif
+
       </a>
     </div>
     @endforeach
@@ -24,7 +32,15 @@
         <td class="post-info">
           <div class="post-header">
             <a href="{{ url('/profile/' . $post->user_id) }}">
-              <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40">
+
+              @if($post->user->icon_image != 'icon1.png')
+              <!-- ユーザーが設定したアイコンを表示 -->
+              <img src="{{ asset('storage/' . $post->user->icon_image) }}" alt="User Icon" width="40" height="40">
+              @else
+              <!-- 初期アイコンを表示 -->
+              <img src="{{ asset('images/icon1.png')}}" alt="User Icon" width="40" height="40">
+              @endif
+              <!-- <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40"> -->
             </a>
             <span>{{ $post->user->username }}</span>
             {{ $post->created_at }}

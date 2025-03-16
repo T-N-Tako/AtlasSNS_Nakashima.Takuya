@@ -7,7 +7,7 @@ html {
 }
 
 body {
-	/* display: flex; */
+	display: flex;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
@@ -19,9 +19,7 @@ body {
 }
 
 header {
-	position: absolute;
-	top: 5%;
-	left: 40%;
+	/* margin: auto; */
 	text-align: center;
 }
 
@@ -37,12 +35,20 @@ header p {
 }
 
 .container {
-	position: absolute;
+	/* position: absolute;
 	top: 55%;
 	left: 50%;
 	width: 350px;
 	padding: 20px;
-	transform: translate(-50%, -50%); /* 中心に移動 */
+	transform: translate(-50%, -50%); 中心に移動
+	text-align: center;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+	width: 350px;
+	margin: auto; /* 上下左右中央配置 */
+	padding: 20px;
+	transform: translateY(-20px);
 	text-align: center;
 	border-radius: 10px;
 	background-color: rgba(0, 0, 0, 0.2);
