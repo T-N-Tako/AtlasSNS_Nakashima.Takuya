@@ -119,7 +119,13 @@ class ProfileController extends Controller
 
             // 新しい画像を保存
             $path = $request->file('image')->store('icons', 'public');
-            $user->icon_image = $path;
+            // $user->icon_image = $path;
+
+            // パスからファイル名のみを取得
+            $filename = basename($path);
+
+            // ファイル名だけをデータベースに保存
+            $user->icon_image = $filename;
         }
 
         $user->save();

@@ -14,9 +14,6 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 
-
-
-
 class RegisteredUserController extends Controller
 {
     /**
@@ -49,5 +46,40 @@ class RegisteredUserController extends Controller
     public function added(): View
     {
         return view('auth.added');
+    }
+
+
+    public function register(Request $request)
+    {
+        // バリデーションルール
+        $request->validate([
+            'username' => 'required|string|min:2|max:12',
+            'email' => 'required|string|email|min:5|max:40|unique:users,email',
+            'password' => 'required|string|min:8|max:20|regex:/^[a-zA-Z0-9]+$/|confirmed',
+        ], [
+            'username.required' => 'ユーザー名は必須項目です',
+            'username.min' => 'ユーザー名は２文字以上で入力してください',
+            'username.max' => 'ユーザー名は12文字以内で入力してください',
+
+            'email.required' => 'メールアドレスは必須項目です',
+            'email.email' => '正しいメールアドレスの形式で入力してください',
+            'email.unique' => 'このメールアドレスはすでに登録されています',
+
+            'password.required' => 'パスワードは必須項目です',
+            'password.min' => 'パスワードは８文字以上で入力してください',
+            'password.max' => 'パスワードは20文字以内で入力してください',
+            'password.alpha_num' => 'パスワードは英数字のみ使用できます',
+            'password.confirmed' => 'パスワードが一致しません',
+            'password_confirmation.required' => 'パスワードは必須項目です',
+        ]);
+
+        // // ユーザーを作成
+        // $user = User::create([
+        //     'username' => $validated['username'],
+        //     'email' => $validated['email'],
+        //     'password' => bcrypt($validated['password']),
+        // ]);
+
+        return redirect('/login')->with('success', '新規登録が完了しました！');
     }
 }

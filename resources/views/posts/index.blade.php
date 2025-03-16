@@ -4,7 +4,28 @@
     <div id="post">
       <form action="/posts" method="POST" id="posts-area">
         @csrf
-        <img src="{{asset('storage/' . Auth::user()->icon_image)}}" alt="User Icon" id="icon" width="50">
+        <!-- <img src="{{asset('storage/' . Auth::user()->icon_image)}}" alt="User Icon" id="icon" width="50"> -->
+
+        <!-- <img src="{{ Auth::user()->icon_image ? asset('storage/' . Auth::user()->icon_image) : asset('images/icon1.png') }}"
+          alt="User Icon" id="icon" width="50"> -->
+
+        <!-- <img src="{{ asset('storage/' . (Auth::user()->icon_image ?? 'icon1.png')) }}"
+          alt="User Icon" id="icon" width="50"> -->
+
+        <!-- <img src="{{ Storage::url(Auth::user()->icon_image ?? 'icons/icon1.png') }}"
+          alt="User Icon" id="icon" width="50"> -->
+
+
+        @if(Auth::user()->icon_image != 'icon1.png')
+        <!-- ユーザーが設定したアイコンを表示 -->
+        <img src="{{ asset('storage/icons/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
+        @else
+        <!-- 初期アイコンを表示 -->
+        <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">
+        @endif
+
+
+
         <textarea name="content" placeholder="投稿内容を入力してください。" id="post-textarea"></textarea>
         <input type="image" src="{{ asset('images/post.png') }}" alt="post Icon" id="post-button">
       </form>
@@ -16,7 +37,15 @@
         <tr id="confirm">
           <td class="post-info">
             <div class="post-header">
-              <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40">
+
+              @if($post->user->icon_image != 'icon1.png')
+              <!-- ユーザーが設定したアイコンを表示 -->
+              <img src="{{ asset('storage/' . $post->user->icon_image) }}" alt="User Icon" width="40" height="40">
+              @else
+              <!-- 初期アイコンを表示 -->
+              <img src="{{ asset('images/icon1.png')}}" alt="User Icon" width="40" height="40">
+              @endif
+
               <span>{{ $post->user->username }}</span>
               {{ $post->created_at }}
             </div>
@@ -27,7 +56,7 @@
               <a class=" js-modal-open edit-button" href="" post="{{ $post->post }}" post_id="{{ $post->id }}"> <img src="{{ asset('images/edit.png') }}"></a>
 
               <a href="/post/{{$post->id}}/delete" onclick="return confirm('この投稿を削除します。よろしいでしょうか？')" onmouseover="this.querySelector('img').src='{{ asset('images/trash-h.png') }}' "
-                onmouseout="this.querySelector('img').src='{{ asset('images/trash.png') }}' "><img src="{{ asset('images/trash-h.png') }}"></a>
+                onmouseout="this.querySelector('img').src='{{ asset('images/trash.png') }}' "><img src="{{ asset('images/trash.png') }}"></a>
             </div>
             @endif
           </td>

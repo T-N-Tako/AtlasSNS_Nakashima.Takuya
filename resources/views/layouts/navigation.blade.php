@@ -3,7 +3,15 @@
     <div id="content">
         <div id="user-info">
             <p>{{ Auth::user()->username }}　さん　　<span class="arrow-down"></span></p>
-            <img src="{{asset('storage/' . Auth::user()->icon_image)}}" alt="User Icon" id="icon" width="50">
+
+            @if(Auth::user()->icon_image != 'icon1.png')
+            <!-- ユーザーが設定したアイコンを表示 -->
+            <img src="{{ asset('storage/icons/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
+            @else
+            <!-- 初期アイコンを表示 -->
+            <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">
+            @endif
+            <!-- <img src="{{asset('storage/' . Auth::user()->icon_image)}}" alt="User Icon" id="icon" width="50"> -->
         </div>
         <div id="accordion-menu">
             <ul>

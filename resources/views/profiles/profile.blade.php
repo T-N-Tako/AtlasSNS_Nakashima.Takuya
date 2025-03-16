@@ -36,9 +36,9 @@
         <div class="form-group">
           <label for="password" class="form-label">パスワード</label>
           <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-          <div class="invalid-feedback">
-            @error('password'){{ $message }} @enderror
-          </div>
+          @error('password')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
 
         {{-- パスワード確認 --}}
