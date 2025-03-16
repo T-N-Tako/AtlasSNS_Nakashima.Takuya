@@ -20,7 +20,17 @@
   <ul>
     @foreach ($users as $user)
     <li class="search-list">
-      <img src="{{ asset('storage/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40">
+
+
+      @if($user->icon_image != 'icon1.png')
+      <img src="{{ asset('storage/' . $user->icon_image) }}" alt="User Icon" width="40" height="40">
+      @else
+      <img src="{{ asset('images/icon1.png') }}" alt="User Icon" width="40" height="40">
+      @endif
+
+
+      <!-- <img src="{{ asset('storage/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40"> -->
+
       <span>{{ $user->username }}</span>
       @if ($user->id !== auth()->id()) <!-- 自分自身にはフォローボタンを表示しない -->
       @if (auth()->user()->isFollowing($user->id))
