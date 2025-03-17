@@ -6,7 +6,17 @@
     {{-- 現在のアイコン画像 --}}
     <div class="profile-image">
       <!-- <label for="images" class="form-label"></label><br> -->
-      <img id="iconPreview" src="{{ Auth::user()->icon_image ? asset('storage/' . Auth::user()->icon_image) : asset('images/default-icon.png') }}" alt="アイコン画像" style="width: 50px; height: 50px;">
+
+
+      @if(Auth::user()->icon_image != 'icon1.png')
+      <!-- ユーザーが設定したアイコンを表示 -->
+      <img src="{{ asset('storage/icons/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
+      @else
+      <!-- 初期アイコンを表示 -->
+      <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">
+      @endif
+
+      <!-- <img id="iconPreview" src="{{ Auth::user()->icon_image ? asset('storage/' . Auth::user()->icon_image) : asset('images/default-icon.png') }}" alt="アイコン画像" style="width: 50px; height: 50px;"> -->
     </div>
 
     <div class="form-container">

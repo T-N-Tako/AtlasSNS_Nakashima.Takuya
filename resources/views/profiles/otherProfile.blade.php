@@ -3,7 +3,7 @@
 <x-login-layout>
 
   <div class="profile-info">
-    <img src="{{ asset('storage/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="follower icon" width="50" height="50">
+    <img src="{{ asset('storage/icons/' . ($user->icon_image ?? 'images/default-icon.png')) }}" alt="follower icon" width="50" height="50">
     <div class="profile-details">
       <div class="username-wrapper">
         <p>ユーザー名 </p>
@@ -40,9 +40,9 @@
           <div class="post-header">
             <img src="{{ asset('storage/' . ($post->user->icon_image ?? 'images/default-icon.png')) }}" alt="user icon" width="40" height="40">
             <span>{{ $post->user->username }}</span>
-            {{ $post->created_at }}
+            {{ $post->created_at->format('Y-m-d H:i')}}
           </div>
-          <div class="post-content">{{ $post->post }}</div>
+          <div class="post-content">{!! nl2br(e($post->post)) !!}</div>
         </td>
       </tr>
       @endforeach

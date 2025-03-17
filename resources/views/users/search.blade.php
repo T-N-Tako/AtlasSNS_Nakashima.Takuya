@@ -23,7 +23,7 @@
 
 
       @if($user->icon_image != 'icon1.png')
-      <img src="{{ asset('storage/' . $user->icon_image) }}" alt="User Icon" width="40" height="40">
+      <img src="{{ asset('storage/icons/' . $user->icon_image) }}" alt="User Icon" width="40" height="40">
       @else
       <img src="{{ asset('images/icon1.png') }}" alt="User Icon" width="40" height="40">
       @endif

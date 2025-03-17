@@ -7,7 +7,7 @@
 
         @if(Auth::user()->icon_image != 'icon1.png')
         <!-- ユーザーが設定したアイコンを表示 -->
-        <img src="{{ asset('storage/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
+        <img src="{{ asset('storage/icons/' . Auth::user()->icon_image) }}" alt="User Icon" id="icon" width="50">
         @else
         <!-- 初期アイコンを表示 -->
         <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">
@@ -29,16 +29,16 @@
 
               @if($post->user->icon_image != 'icon1.png')
               <!-- ユーザーが設定したアイコンを表示 -->
-              <img src="{{ asset('storage/' . $post->user->icon_image) }}" alt="User Icon" width="40" height="40">
+              <img src="{{ asset('storage/icons/' . $post->user->icon_image) }}" alt="User Icon" width="40" height="40">
               @else
               <!-- 初期アイコンを表示 -->
               <img src="{{ asset('images/icon1.png')}}" alt="User Icon" width="40" height="40">
               @endif
 
               <span>{{ $post->user->username }}</span>
-              {{ $post->created_at }}
+              {{ $post->created_at->format('Y-m-d H:i')}}
             </div>
-            <div class="post-content">{{ $post->post }}</div>
+            <div class="post-content">{!! nl2br(e($post->post)) !!}</div>
             @if (Auth::user()->id == $post->user_id)
             <div class="post-actions">
 

@@ -248,7 +248,21 @@ section {
 	font-size: 25px;
 }
 
+/* 追加 */
+.follower-container {
+	display: grid;
+	justify-content: center;
+	width: 100%; /* 親要素の幅を最大に */
 
+	grid-template-columns: repeat(10, 1fr); /* 10列で自動配置 */
+	gap: 10px; /* アイコンの間隔 */
+}
+
+.follower-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 #post img, #post textarea, #post input, .unfollow-button {
 	display: inline-block;
