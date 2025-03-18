@@ -87,6 +87,9 @@ class ProfileController extends Controller
             'password.alpha_num' => 'パスワードは英数字のみ使用できます',
             'password.confirmed' => 'パスワードが一致しません',
             'password_confirmation.required' => 'パスワードは必須項目です',
+            'password_confirmation.min' => 'パスワードは８文字以上で入力してください',
+            'password_confirmation.max' => 'パスワードは20文字以内で入力してください',
+            'password_confirmation.alpha_num' => 'パスワードは20文字以内で入力してください',
 
             'bio.max' => '自己紹介は150文字以内で入力してください',
 

@@ -13,9 +13,19 @@
         <img src="{{ asset('images/icon1.png') }}" alt="User Icon" id="icon" width="50">
         @endif
 
+        <div class="textarea-container">
+          <textarea name="content" placeholder="投稿内容を入力してください。" id="post-textarea"></textarea>
 
+          <!-- エラーメッセージを表示 -->
+          @if ($errors->has('content'))
+          <div class="text-danger">
+            @foreach ($errors->get('content') as $error)
+            <p>{{ $error }}</p>
+            @endforeach
+          </div>
+          @endif
+        </div>
 
-        <textarea name="content" placeholder="投稿内容を入力してください。" id="post-textarea"></textarea>
         <input type="image" src="{{ asset('images/post.png') }}" alt="post Icon" id="post-button">
       </form>
     </div>
@@ -62,7 +72,20 @@
     <div class="modal__content">
       <form action="/post/update" method="POST">
         @csrf
-        <textarea name="content" class="modal_post"></textarea>
+        <div class="textarea-container">
+          <textarea name="content" class="modal_post"></textarea>
+
+          <!-- エラーメッセージを表示 -->
+          @if ($errors->has('content'))
+          <div class="text-danger">
+            @foreach ($errors->get('content') as $error)
+            <p>{{ $error }}</p>
+            @endforeach
+          </div>
+          @endif
+        </div>
+
+
         <input type="hidden" name="id" class="modal_id" value="{{ $post->id }}">
         <input type="image" src="{{ asset('images/edit.png') }}" class="edit-icon">
         {{ csrf_field() }}
